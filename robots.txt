@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://nestgames.vercel.app/sitemap.xml
+Sitemap: https://muhammadyasir425.github.io/NestGames/sitemap.xml
