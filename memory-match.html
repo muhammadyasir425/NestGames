@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Memory Match Game Online Free | GameNest</title>
+  <meta name="description" content="Play Memory Match online for free at GameNest. Find matching pairs of cards and test your memory.">
+  <meta name="robots" content="index, follow">
+
+  <link rel="canonical" href="https://muhammadyasir425.github.io/NestGames/memory-match.html">
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    .memory-page {
+      min-height: 100vh;
+      padding: 120px 20px 60px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .memory-container {
+      width: 100%;
+      max-width: 650px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 42px;
+      margin-bottom: 10px;
+    }
+
+    .info {
+      opacity: .85;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .score {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .memory-board {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      max-width: 520px;
+      margin: auto;
+    }
+
+    .card {
+      aspect-ratio: 1;
+      border: 0;
+      border-radius: 12px;
+      background: #d4af37;
+      color: transparent;
+      font-size: clamp(25px, 7vw, 45px);
+      cursor: pointer;
+      transition: transform .2s;
+    }
+
+    .card:hover {
+      transform: scale(1.03);
+    }
+
+    .card.flipped,
+    .card.matched {
+      background: rgba(255,255,255,.12);
+      color: white;
+    }
+
+    .card.matched {
+      opacity: .7;
+    }
+
+    #newGame {
+      margin-top: 25px;
+      border: 0;
+      padding: 13px 24px;
+      border-radius: 10px;
+      background: #d4af37;
+      color: #111;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .message {
+      min-height: 25px;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    .back {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 12px 20px;
+      border-radius: 10px;
+      background: rgba(255,255,255,.1);
+      color: white;
+      text-decoration: none;
+    }
+
+    .seo-content {
+      margin-top: 45px;
+      text-align: left;
+      line-height: 1.8;
+      opacity: .9;
+    }
+
+    @media (max-width: 500px) {
+
+      .memory-board {
+        gap: 7px;
+      }
+
+      h1 {
+        font-size: 34px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header class="navbar">
+  <a href="index.html" class="logo">
+    <span class="logo-icon">GN</span>
+    <span>Game<span>Nest</span></span>
+  </a>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="index.html#games">Games</a>
+    <a href="index.html#tools">Tools</a>
+    <a href="index.html#about">About</a>
+    <a href="index.html#contact">Contact</a>
+  </nav>
+</header>
+
+<main class="memory-page">
+
+  <div class="memory-container">
+
+    <h1>Memory Match</h1>
+
+    <p class="info">
+      Flip the cards and find all matching pairs.
+      Try to complete the game using as few moves as possible.
+    </p>
+
+    <div class="score">
+      Moves: <span id="moves">0</span>
+    </div>
+
+    <div class="memory-board" id="memoryBoard"></div>
+
+    <button id="newGame">
+      New Game
+    </button>
+
+    <div class="message" id="message"></div>
+
+    <a class="back" href="index.html#games">
+      ← Back to Games
+    </a>
+
+    <section class="seo-content">
+
+      <h2>Play Memory Match Online Free</h2>
+
+      <p>
+        Play Memory Match online for free at GameNest.
+        Flip cards and find matching pairs to complete the puzzle.
+        The game is simple to play and helps test your memory.
+      </p>
+
+      <h2>How to Play Memory Match</h2>
+
+      <p>
+        Click a card to reveal it, then click another card.
+        If both cards match, they stay open. Find all the
+        matching pairs to complete the game.
+      </p>
+
+    </section>
+
+  </div>
+
+</main>
+
+<script>
+
+  const memoryBoard =
+    document.getElementById("memoryBoard");
+
+  const movesElement =
+    document.getElementById("moves");
+
+  const messageElement =
+    document.getElementById("message");
+
+  const newGameButton =
+    document.getElementById("newGame");
+
+  const symbols = [
+    "🍎", "🍎",
+    "🍕", "🍕",
+    "⚽", "⚽",
+    "🚀", "🚀",
+    "🎮", "🎮",
+    "⭐", "⭐",
+    "🐱", "🐱",
+    "🎵", "🎵"
+  ];
+
+  let cards = [];
+  let firstCard = null;
+  let secondCard = null;
+  let locked = false;
+  let moves = 0;
+  let matchedPairs = 0;
+
+  function shuffle(array) {
+
+    for (let i = array.length - 1; i > 0; i--) {
+
+      const randomIndex =
+        Math.floor(Math.random() * (i + 1));
+
+      [array[i], array[randomIndex]] =
+        [array[randomIndex], array[i]];
+    }
+
+    return array;
+  }
+
+  function startGame() {
+
+    cards = shuffle([...symbols]);
+
+    firstCard = null;
+    secondCard = null;
+
+    locked = false;
+    moves = 0;
+    matchedPairs = 0;
+
+    movesElement.textContent = "0";
+    messageElement.textContent = "";
+
+    memoryBoard.innerHTML = "";
+
+    cards.forEach((symbol, index) => {
+
+      const card =
+        document.createElement("button");
+
+      card.className = "card";
+      card.dataset.symbol = symbol;
+      card.dataset.index = index;
+
+      card.textContent = "?";
+
+      card.addEventListener(
+        "click",
+        () => flipCard(card)
+      );
+
+      memoryBoard.appendChild(card);
+    });
+  }
+
+  function flipCard(card) {
+
+    if (
+      locked ||
+      card === firstCard ||
+      card.classList.contains("matched") ||
+      card.classList.contains("flipped")
+    ) {
+      return;
+    }
+
+    card.classList.add("flipped");
+    card.textContent = card.dataset.symbol;
+
+    if (!firstCard) {
+
+      firstCard = card;
+      return;
+    }
+
+    secondCard = card;
+    moves++;
+
+    movesElement.textContent = moves;
+
+    checkMatch();
+  }
+
+  function checkMatch() {
+
+    const isMatch =
+      firstCard.dataset.symbol ===
+      secondCard.dataset.symbol;
+
+    if (isMatch) {
+
+      firstCard.classList.add("matched");
+      secondCard.classList.add("matched");
+
+      matchedPairs++;
+
+      resetTurn();
+
+      if (matchedPairs === symbols.length / 2) {
+
+        messageElement.textContent =
+          "🎉 You completed the game in " +
+          moves +
+          " moves!";
+      }
+
+    } else {
+
+      locked = true;
+
+      setTimeout(() => {
+
+        firstCard.classList.remove("flipped");
+        secondCard.classList.remove("flipped");
+
+        firstCard.textContent = "?";
+        secondCard.textContent = "?";
+
+        resetTurn();
+
+      }, 700);
+    }
+  }
+
+  function resetTurn() {
+
+    firstCard = null;
+    secondCard = null;
+    locked = false;
+  }
+
+  newGameButton.addEventListener(
+    "click",
+    startGame
+  );
+
+  startGame();
+
+</script>
+
+</body>
+</html>
