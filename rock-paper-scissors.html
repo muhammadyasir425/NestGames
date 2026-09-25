@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Rock Paper Scissors Online Free | GameNest</title>
+
+  <meta
+    name="description"
+    content="Play Rock Paper Scissors online for free at GameNest. Choose rock, paper or scissors and play against the computer."
+  >
+
+  <meta name="robots" content="index, follow">
+
+  <link
+    rel="canonical"
+    href="https://muhammadyasir425.github.io/NestGames/rock-paper-scissors.html"
+  >
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    .rps-page {
+      min-height: 100vh;
+      padding: 120px 20px 60px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .rps-container {
+      width: 100%;
+      max-width: 650px;
+      text-align: center;
+    }
+
+    .rps-container h1 {
+      font-size: 42px;
+      margin-bottom: 10px;
+    }
+
+    .intro {
+      opacity: .85;
+      line-height: 1.6;
+      margin-bottom: 30px;
+    }
+
+    .choices {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .choice {
+      border: 0;
+      border-radius: 15px;
+      padding: 22px 28px;
+      background: rgba(255,255,255,.1);
+      color: white;
+      cursor: pointer;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .choice:hover {
+      background: rgba(255,255,255,.18);
+      transform: translateY(-2px);
+    }
+
+    .result {
+      margin-top: 30px;
+      padding: 25px;
+      border-radius: 15px;
+      background: rgba(255,255,255,.06);
+    }
+
+    #result {
+      font-size: 25px;
+      font-weight: bold;
+      margin-bottom: 12px;
+    }
+
+    .score {
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+
+    #reset {
+      border: 0;
+      padding: 12px 22px;
+      border-radius: 10px;
+      background: #d4af37;
+      color: #111;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .back {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 12px 20px;
+      border-radius: 10px;
+      background: rgba(255,255,255,.1);
+      color: white;
+      text-decoration: none;
+    }
+
+    .seo-content {
+      margin-top: 50px;
+      text-align: left;
+      line-height: 1.8;
+      opacity: .9;
+    }
+  </style>
+</head>
+
+<body>
+
+<header class="navbar">
+  <a href="index.html" class="logo">
+    <span class="logo-icon">GN</span>
+    <span>Game<span>Nest</span></span>
+  </a>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="index.html#games">Games</a>
+    <a href="index.html#tools">Tools</a>
+    <a href="index.html#about">About</a>
+    <a href="index.html#contact">Contact</a>
+  </nav>
+</header>
+
+<main class="rps-page">
+
+  <div class="rps-container">
+
+    <h1>Rock Paper Scissors</h1>
+
+    <p class="intro">
+      Play Rock Paper Scissors online for free.
+      Choose your move and compete against the computer.
+    </p>
+
+    <div class="choices">
+
+      <button class="choice" onclick="play('rock')">
+        🪨 Rock
+      </button>
+
+      <button class="choice" onclick="play('paper')">
+        📄 Paper
+      </button>
+
+      <button class="choice" onclick="play('scissors')">
+        ✂️ Scissors
+      </button>
+
+    </div>
+
+    <div class="result">
+
+      <div id="result">
+        Choose your move!
+      </div>
+
+      <div class="score">
+        You: <span id="playerScore">0</span>
+        &nbsp; | &nbsp;
+        Computer: <span id="computerScore">0</span>
+      </div>
+
+      <button id="reset" onclick="resetGame()">
+        New Game
+      </button>
+
+    </div>
+
+    <a class="back" href="index.html#games">
+      ← Back to Games
+    </a>
+
+    <section class="seo-content">
+
+      <h2>Play Rock Paper Scissors Online</h2>
+
+      <p>
+        Play Rock Paper Scissors online for free at GameNest.
+        Choose rock, paper or scissors and see if you can beat
+        the computer.
+      </p>
+
+      <h2>How to Play</h2>
+
+      <p>
+        Rock beats scissors, scissors beats paper, and paper
+        beats rock. Choose one option and the computer will
+        randomly select its move.
+      </p>
+
+    </section>
+
+  </div>
+
+</main>
+
+<script>
+
+  let playerScore = 0;
+  let computerScore = 0;
+
+  function play(playerChoice) {
+
+    const choices = [
+      "rock",
+      "paper",
+      "scissors"
+    ];
+
+    const computerChoice =
+      choices[Math.floor(Math.random() * choices.length)];
+
+    let resultText = "";
+
+    if (playerChoice === computerChoice) {
+
+      resultText =
+        "Draw! Both chose " + playerChoice + ".";
+
+    } else if (
+
+      (playerChoice === "rock" &&
+        computerChoice === "scissors") ||
+
+      (playerChoice === "paper" &&
+        computerChoice === "rock") ||
+
+      (playerChoice === "scissors" &&
+        computerChoice === "paper")
+
+    ) {
+
+      playerScore++;
+
+      resultText =
+        "You win! Computer chose " +
+        computerChoice + ".";
+
+    } else {
+
+      computerScore++;
+
+      resultText =
+        "Computer wins! Computer chose " +
+        computerChoice + ".";
+    }
+
+    document.getElementById("result").textContent =
+      resultText;
+
+    document.getElementById("playerScore").textContent =
+      playerScore;
+
+    document.getElementById("computerScore").textContent =
+      computerScore;
+  }
+
+  function resetGame() {
+
+    playerScore = 0;
+    computerScore = 0;
+
+    document.getElementById("playerScore").textContent = "0";
+    document.getElementById("computerScore").textContent = "0";
+
+    document.getElementById("result").textContent =
+      "Choose your move!";
+  }
+
+</script>
+
+</body>
+</html>
