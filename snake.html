@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Play Snake Online Free | GameNest</title>
+
+  <meta
+    name="description"
+    content="Play Snake online for free at GameNest. Eat the food, grow your snake, avoid the walls and your own body, and beat your high score."
+  >
+
+  <meta
+    name="keywords"
+    content="snake game, play snake online, free snake game, snake game online, classic snake game"
+  >
+
+  <meta name="robots" content="index, follow">
+
+  <link
+    rel="canonical"
+    href="https://muhammadyasir425.github.io/NestGames/snake.html"
+  >
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    .snake-page {
+      min-height: 100vh;
+      padding: 120px 20px 60px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .snake-container {
+      width: 100%;
+      max-width: 520px;
+    }
+
+    .snake-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .snake-header h1 {
+      margin: 0;
+      font-size: 42px;
+    }
+
+    .score-box {
+      background: rgba(255,255,255,0.08);
+      padding: 10px 18px;
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    .score-box small {
+      display: block;
+      opacity: 0.7;
+      font-size: 12px;
+    }
+
+    #score {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .instructions {
+      line-height: 1.6;
+      opacity: 0.85;
+      margin-bottom: 20px;
+    }
+
+    #snakeCanvas {
+      display: block;
+      width: 100%;
+      max-width: 480px;
+      margin: auto;
+      background: #10151c;
+      border: 2px solid rgba(255,255,255,0.12);
+      border-radius: 15px;
+      touch-action: none;
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: repeat(3, 65px);
+      justify-content: center;
+      gap: 8px;
+      margin-top: 20px;
+    }
+
+    .controls button {
+      height: 55px;
+      border: 0;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.1);
+      color: white;
+      font-size: 22px;
+      cursor: pointer;
+    }
+
+    .controls button:hover {
+      background: rgba(255,255,255,0.18);
+    }
+
+    .controls .empty {
+      visibility: hidden;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .actions button,
+    .back-btn {
+      border: 0;
+      cursor: pointer;
+      padding: 13px 20px;
+      border-radius: 10px;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    #newGame {
+      background: #d4af37;
+      color: #111;
+    }
+
+    .back-btn {
+      background: rgba(255,255,255,0.1);
+      color: white;
+    }
+
+    #message {
+      min-height: 25px;
+      margin-top: 15px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .seo-content {
+      margin-top: 45px;
+      line-height: 1.8;
+      opacity: 0.9;
+    }
+
+    .seo-content h2 {
+      margin-top: 30px;
+    }
+
+    @media (max-width: 600px) {
+      .snake-header h1 {
+        font-size: 34px;
+      }
+
+      .snake-page {
+        padding-top: 100px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="navbar">
+    <a href="index.html" class="logo">
+      <span class="logo-icon">GN</span>
+      <span>Game<span>Nest</span></span>
+    </a>
+
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="index.html#games">Games</a>
+      <a href="index.html#tools">Tools</a>
+      <a href="index.html#about">About</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main class="snake-page">
+
+    <div class="snake-container">
+
+      <div class="snake-header">
+        <h1>Snake Game</h1>
+
+        <div class="score-box">
+          <small>SCORE</small>
+          <span id="score">0</span>
+        </div>
+      </div>
+
+      <p class="instructions">
+        Use the arrow keys or buttons to move the snake.
+        Eat the food, grow longer and avoid hitting the walls
+        or yourself.
+      </p>
+
+      <canvas id="snakeCanvas" width="480" height="480"></canvas>
+
+      <div class="controls">
+        <button class="empty"></button>
+        <button data-direction="up">↑</button>
+        <button class="empty"></button>
+
+        <button data-direction="left">←</button>
+        <button data-direction="down">↓</button>
+        <button data-direction="right">→</button>
+      </div>
+
+      <div class="actions">
+        <button id="newGame">New Game</button>
+
+        <a href="index.html#games" class="back-btn">
+          ← Back to Games
+        </a>
+      </div>
+
+      <div id="message"></div>
+
+      <section class="seo-content">
+
+        <h2>Play Snake Online Free</h2>
+
+        <p>
+          Play Snake online for free at GameNest. This classic
+          browser game is simple to learn and fun to play.
+          Control the snake, eat the food and try to achieve
+          the highest score.
+        </p>
+
+        <h2>How to Play Snake</h2>
+
+        <p>
+          Use the arrow keys on your keyboard or the on-screen
+          controls. Guide the snake toward the food while avoiding
+          the walls and your own body.
+        </p>
+
+        <h2>Snake Game Tips</h2>
+
+        <p>
+          Plan your movement carefully as the snake gets longer.
+          Avoid making sudden turns that can trap you against
+          your own body.
+        </p>
+
+      </section>
+
+    </div>
+
+  </main>
+
+  <script>
+    const canvas = document.getElementById("snakeCanvas");
+    const ctx = canvas.getContext("2d");
+
+    const scoreElement = document.getElementById("score");
+    const messageElement = document.getElementById("message");
+    const newGameButton = document.getElementById("newGame");
+
+    const gridSize = 24;
+    const tileSize = canvas.width / gridSize;
+
+    let snake;
+    let food;
+    let direction;
+    let nextDirection;
+    let score;
+    let gameRunning;
+    let gameTimer;
+
+    function startGame() {
+
+      clearInterval(gameTimer);
+
+      snake = [
+        { x: 12, y: 12 },
+        { x: 11, y: 12 },
+        { x: 10, y: 12 }
+      ];
+
+      food = createFood();
+
+      direction = "right";
+      nextDirection = "right";
+
+      score = 0;
+      gameRunning = true;
+
+      scoreElement.textContent = score;
+      messageElement.textContent = "";
+
+      draw();
+
+      gameTimer = setInterval(gameLoop, 110);
+    }
+
+    function createFood() {
+
+      let newFood;
+
+      do {
+        newFood = {
+          x: Math.floor(Math.random() * gridSize),
+          y: Math.floor(Math.random() * gridSize)
+        };
+      } while (
+        snake.some(
+          part => part.x === newFood.x && part.y === newFood.y
+        )
+      );
+
+      return newFood;
+    }
+
+    function gameLoop() {
+
+      if (!gameRunning) return;
+
+      direction = nextDirection;
+
+      const head = {
+        x: snake[0].x,
+        y: snake[0].y
+      };
+
+      if (direction === "up") head.y--;
+      if (direction === "down") head.y++;
+      if (direction === "left") head.x--;
+      if (direction === "right") head.x++;
+
+      if (hitWall(head) || hitSelf(head)) {
+        endGame();
+        return;
+      }
+
+      snake.unshift(head);
+
+      if (
+        head.x === food.x &&
+        head.y === food.y
+      ) {
+
+        score++;
+        scoreElement.textContent = score;
+
+        food = createFood();
+
+      } else {
+        snake.pop();
+      }
+
+      draw();
+    }
+
+    function hitWall(head) {
+
+      return (
+        head.x < 0 ||
+        head.x >= gridSize ||
+        head.y < 0 ||
+        head.y >= gridSize
+      );
+    }
+
+    function hitSelf(head) {
+
+      return snake.some(
+        part => part.x === head.x && part.y === head.y
+      );
+    }
+
+    function draw() {
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = "#10151c";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      drawFood();
+      drawSnake();
+    }
+
+    function drawSnake() {
+
+      snake.forEach((part, index) => {
+
+        ctx.fillStyle =
+          index === 0 ? "#d4af37" : "#8f7725";
+
+        ctx.fillRect(
+          part.x * tileSize + 2,
+          part.y * tileSize + 2,
+          tileSize - 4,
+          tileSize - 4
+        );
+      });
+    }
+
+    function drawFood() {
+
+      ctx.fillStyle = "#e74c3c";
+
+      ctx.beginPath();
+
+      ctx.arc(
+        food.x * tileSize + tileSize / 2,
+        food.y * tileSize + tileSize / 2,
+        tileSize * 0.35,
+        0,
+        Math.PI * 2
+      );
+
+      ctx.fill();
+    }
+
+    function changeDirection(newDirection) {
+
+      if (!gameRunning) return;
+
+      const opposite = {
+        up: "down",
+        down: "up",
+        left: "right",
+        right: "left"
+      };
+
+      if (opposite[direction] === newDirection) {
+        return;
+      }
+
+      nextDirection = newDirection;
+    }
+
+    document.addEventListener("keydown", function(event) {
+
+      const keyDirections = {
+        ArrowUp: "up",
+        ArrowDown: "down",
+        ArrowLeft: "left",
+        ArrowRight: "right"
+      };
+
+      if (keyDirections[event.key]) {
+
+        event.preventDefault();
+
+        changeDirection(keyDirections[event.key]);
+      }
+    });
+
+    document.querySelectorAll("[data-direction]").forEach(button => {
+
+      button.addEventListener("click", function() {
+
+        changeDirection(this.dataset.direction);
+
+      });
+
+    });
+
+    function endGame() {
+
+      gameRunning = false;
+
+      clearInterval(gameTimer);
+
+      messageElement.textContent =
+        "Game Over! Your score: " + score;
+    }
+
+    newGameButton.addEventListener("click", startGame);
+
+    startGame();
+  </script>
+
+</body>
+</html>
