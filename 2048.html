@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Play 2048 Online Free | GameNest</title>
+
+  <meta
+    name="description"
+    content="Play 2048 online for free at GameNest. Combine matching numbers, reach 2048, and enjoy this classic puzzle game directly in your browser."
+  >
+
+  <meta
+    name="keywords"
+    content="2048 game, play 2048 online, free 2048 game, 2048 puzzle game, online puzzle game"
+  >
+
+  <meta name="robots" content="index, follow">
+
+  <link rel="canonical" href="https://muhammadyasir425.github.io/NestGames/2048.html">
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    .game-page {
+      min-height: 100vh;
+      padding: 120px 20px 60px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .game-container {
+      width: 100%;
+      max-width: 520px;
+    }
+
+    .game-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .game-top h1 {
+      margin: 0;
+      font-size: 42px;
+    }
+
+    .score-box {
+      background: rgba(255,255,255,0.08);
+      padding: 10px 18px;
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    .score-box small {
+      display: block;
+      opacity: 0.7;
+      font-size: 12px;
+    }
+
+    #score {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .instructions {
+      margin-bottom: 20px;
+      line-height: 1.6;
+      opacity: 0.85;
+    }
+
+    #gameBoard {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      padding: 10px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      background: #8f7a66;
+      border-radius: 15px;
+      box-sizing: border-box;
+      touch-action: none;
+    }
+
+    .tile {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 10px;
+      font-size: clamp(24px, 7vw, 42px);
+      font-weight: 800;
+      background: #cdc1b4;
+      color: #776e65;
+      user-select: none;
+    }
+
+    .tile[data-value="2"] {
+      background: #eee4da;
+    }
+
+    .tile[data-value="4"] {
+      background: #ede0c8;
+    }
+
+    .tile[data-value="8"] {
+      background: #f2b179;
+      color: white;
+    }
+
+    .tile[data-value="16"] {
+      background: #f59563;
+      color: white;
+    }
+
+    .tile[data-value="32"] {
+      background: #f67c5f;
+      color: white;
+    }
+
+    .tile[data-value="64"] {
+      background: #f65e3b;
+      color: white;
+    }
+
+    .tile[data-value="128"],
+    .tile[data-value="256"],
+    .tile[data-value="512"],
+    .tile[data-value="1024"],
+    .tile[data-value="2048"] {
+      background: #edcf72;
+      color: white;
+      font-size: clamp(20px, 6vw, 34px);
+    }
+
+    .game-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .game-actions button,
+    .back-btn {
+      border: 0;
+      cursor: pointer;
+      padding: 13px 20px;
+      border-radius: 10px;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    #newGame {
+      background: #d4af37;
+      color: #111;
+    }
+
+    .back-btn {
+      background: rgba(255,255,255,0.1);
+      color: white;
+    }
+
+    .game-message {
+      margin-top: 15px;
+      min-height: 25px;
+      font-weight: bold;
+    }
+
+    .seo-content {
+      margin-top: 45px;
+      line-height: 1.8;
+      opacity: 0.9;
+    }
+
+    .seo-content h2 {
+      margin-top: 30px;
+    }
+
+    @media (max-width: 600px) {
+      .game-top h1 {
+        font-size: 34px;
+      }
+
+      .game-page {
+        padding-top: 100px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="navbar">
+    <a href="index.html" class="logo">
+      <span class="logo-icon">GN</span>
+      <span>Game<span>Nest</span></span>
+    </a>
+
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="index.html#games">Games</a>
+      <a href="index.html#tools">Tools</a>
+      <a href="index.html#about">About</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main class="game-page">
+
+    <div class="game-container">
+
+      <div class="game-top">
+        <h1>2048</h1>
+
+        <div class="score-box">
+          <small>SCORE</small>
+          <span id="score">0</span>
+        </div>
+      </div>
+
+      <p class="instructions">
+        Combine matching numbers to create bigger tiles.
+        Reach <strong>2048</strong> to win!
+      </p>
+
+      <div id="gameBoard"></div>
+
+      <div class="game-actions">
+        <button id="newGame">New Game</button>
+
+        <a href="index.html#games" class="back-btn">
+          ← Back to Games
+        </a>
+      </div>
+
+      <div id="message" class="game-message"></div>
+
+      <section class="seo-content">
+
+        <h2>Play 2048 Online Free</h2>
+
+        <p>
+          Play 2048 online for free with GameNest. 2048 is a simple
+          number puzzle game where you combine matching tiles to create
+          larger numbers. The goal is to reach the 2048 tile.
+        </p>
+
+        <h2>How to Play 2048</h2>
+
+        <p>
+          Use the arrow keys on your keyboard to move the tiles.
+          On mobile devices, swipe in different directions.
+          When two tiles with the same number touch, they merge
+          into one larger tile.
+        </p>
+
+        <h2>2048 Game Tips</h2>
+
+        <p>
+          Try to keep your highest tile in one corner and avoid
+          moving randomly. Plan your moves carefully because the
+          board becomes harder to manage as the numbers increase.
+        </p>
+
+      </section>
+
+    </div>
+
+  </main>
+
+  <script>
+    const boardElement = document.getElementById("gameBoard");
+    const scoreElement = document.getElementById("score");
+    const messageElement = document.getElementById("message");
+    const newGameButton = document.getElementById("newGame");
+
+    let board = [];
+    let score = 0;
+
+    function startGame() {
+      board = Array.from({ length: 4 }, () => Array(4).fill(0));
+      score = 0;
+      messageElement.textContent = "";
+
+      addRandomTile();
+      addRandomTile();
+
+      updateBoard();
+    }
+
+    function addRandomTile() {
+      const empty = [];
+
+      for (let row = 0; row < 4; row++) {
+        for (let col = 0; col < 4; col++) {
+          if (board[row][col] === 0) {
+            empty.push({ row, col });
+          }
+        }
+      }
+
+      if (empty.length === 0) return;
+
+      const position = empty[Math.floor(Math.random() * empty.length)];
+
+      board[position.row][position.col] =
+        Math.random() < 0.9 ? 2 : 4;
+    }
+
+    function updateBoard() {
+      boardElement.innerHTML = "";
+
+      for (let row = 0; row < 4; row++) {
+        for (let col = 0; col < 4; col++) {
+
+          const tile = document.createElement("div");
+          tile.className = "tile";
+
+          const value = board[row][col];
+
+          if (value > 0) {
+            tile.textContent = value;
+            tile.dataset.value = value;
+          }
+
+          boardElement.appendChild(tile);
+        }
+      }
+
+      scoreElement.textContent = score;
+    }
+
+    function slide(row) {
+
+      const filtered = row.filter(value => value !== 0);
+
+      const result = [];
+      let gained = 0;
+
+      for (let i = 0; i < filtered.length; i++) {
+
+        if (
+          i + 1 < filtered.length &&
+          filtered[i] === filtered[i + 1]
+        ) {
+          const merged = filtered[i] * 2;
+
+          result.push(merged);
+
+          gained += merged;
+
+          i++;
+        } else {
+          result.push(filtered[i]);
+        }
+      }
+
+      while (result.length < 4) {
+        result.push(0);
+      }
+
+      return {
+        row: result,
+        gained
+      };
+    }
+
+    function moveLeft() {
+
+      let changed = false;
+
+      for (let row = 0; row < 4; row++) {
+
+        const old = [...board[row]];
+        const result = slide(board[row]);
+
+        board[row] = result.row;
+        score += result.gained;
+
+        if (old.join(",") !== board[row].join(",")) {
+          changed = true;
+        }
+      }
+
+      return changed;
+    }
+
+    function rotateClockwise() {
+
+      const newBoard =
+        Array.from({ length: 4 }, () => Array(4).fill(0));
+
+      for (let row = 0; row < 4; row++) {
+        for (let col = 0; col < 4; col++) {
+          newBoard[col][3 - row] = board[row][col];
+        }
+      }
+
+      board = newBoard;
+    }
+
+    function move(direction) {
+
+      let rotations = 0;
+
+      if (direction === "up") {
+        rotations = 3;
+      }
+
+      if (direction === "right") {
+        rotations = 2;
+      }
+
+      if (direction === "down") {
+        rotations = 1;
+      }
+
+      for (let i = 0; i < rotations; i++) {
+        rotateClockwise();
+      }
+
+      const changed = moveLeft();
+
+      for (let i = 0; i < (4 - rotations) % 4; i++) {
+        rotateClockwise();
+      }
+
+      if (changed) {
+        addRandomTile();
+        updateBoard();
+
+        if (has2048()) {
+          messageElement.textContent =
+            "🎉 You reached 2048!";
+        } else if (!canMove()) {
+          messageElement.textContent =
+            "Game Over! Try a new game.";
+        }
+      }
+    }
+
+    function has2048() {
+
+      for (let row = 0; row < 4; row++) {
+        for (let col = 0; col < 4; col++) {
+
+          if (board[row][col] >= 2048) {
+            return true;
+          }
+        }
+      }
+
+      return false;
+    }
+
+    function canMove() {
+
+      for (let row = 0; row < 4; row++) {
+        for (let col = 0; col < 4; col++) {
+
+          if (board[row][col] === 0) {
+            return true;
+          }
+
+          if (
+            col < 3 &&
+            board[row][col] === board[row][col + 1]
+          ) {
+            return true;
+          }
+
+          if (
+            row < 3 &&
+            board[row][col] === board[row + 1][col]
+          ) {
+            return true;
+          }
+        }
+      }
+
+      return false;
+    }
+
+    document.addEventListener("keydown", function(event) {
+
+      const keys = {
+        ArrowLeft: "left",
+        ArrowRight: "right",
+        ArrowUp: "up",
+        ArrowDown: "down"
+      };
+
+      if (keys[event.key]) {
+        event.preventDefault();
+        move(keys[event.key]);
+      }
+    });
+
+    let touchStartX = 0;
+    let touchStartY = 0;
+
+    boardElement.addEventListener("touchstart", function(event) {
+
+      const touch = event.changedTouches[0];
+
+      touchStartX = touch.clientX;
+      touchStartY = touch.clientY;
+
+    }, { passive: true });
+
+    boardElement.addEventListener("touchend", function(event) {
+
+      const touch = event.changedTouches[0];
+
+      const diffX = touch.clientX - touchStartX;
+      const diffY = touch.clientY - touchStartY;
+
+      if (Math.max(Math.abs(diffX), Math.abs(diffY)) < 30) {
+        return;
+      }
+
+      if (Math.abs(diffX) > Math.abs(diffY)) {
+
+        if (diffX > 0) {
+          move("right");
+        } else {
+          move("left");
+        }
+
+      } else {
+
+        if (diffY > 0) {
+          move("down");
+        } else {
+          move("up");
+        }
+      }
+
+    }, { passive: true });
+
+    newGameButton.addEventListener("click", startGame);
+
+    startGame();
+  </script>
+
+</body>
+</html>
