@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Play Tic Tac Toe Online Free | GameNest</title>
+  <meta name="description" content="Play Tic Tac Toe online for free at GameNest. Play against a friend with the classic X and O game.">
+  <meta name="robots" content="index, follow">
+
+  <link rel="canonical" href="https://muhammadyasir425.github.io/NestGames/tic-tac-toe.html">
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    .game-page {
+      min-height: 100vh;
+      padding: 120px 20px 60px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .game-container {
+      width: 100%;
+      max-width: 500px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 42px;
+      margin-bottom: 10px;
+    }
+
+    .info {
+      opacity: .85;
+      margin-bottom: 25px;
+    }
+
+    .status {
+      font-size: 22px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .board {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      max-width: 420px;
+      margin: auto;
+    }
+
+    .cell {
+      aspect-ratio: 1;
+      border: 0;
+      border-radius: 14px;
+      background: rgba(255,255,255,.1);
+      color: white;
+      font-size: clamp(45px, 12vw, 75px);
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .cell:hover {
+      background: rgba(255,255,255,.17);
+    }
+
+    #reset {
+      margin-top: 25px;
+      border: 0;
+      padding: 13px 25px;
+      border-radius: 10px;
+      background: #d4af37;
+      color: #111;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .back {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 12px 20px;
+      border-radius: 10px;
+      background: rgba(255,255,255,.1);
+      color: white;
+      text-decoration: none;
+    }
+
+    .seo-content {
+      margin-top: 45px;
+      text-align: left;
+      line-height: 1.8;
+      opacity: .9;
+    }
+  </style>
+</head>
+
+<body>
+
+<header class="navbar">
+  <a href="index.html" class="logo">
+    <span class="logo-icon">GN</span>
+    <span>Game<span>Nest</span></span>
+  </a>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="index.html#games">Games</a>
+    <a href="index.html#tools">Tools</a>
+    <a href="index.html#about">About</a>
+    <a href="index.html#contact">Contact</a>
+  </nav>
+</header>
+
+<main class="game-page">
+
+  <div class="game-container">
+
+    <h1>Tic Tac Toe</h1>
+
+    <p class="info">
+      Play the classic Tic Tac Toe game with two players.
+    </p>
+
+    <div class="status" id="status">
+      Player X's Turn
+    </div>
+
+    <div class="board">
+
+      <button class="cell" data-index="0"></button>
+      <button class="cell" data-index="1"></button>
+      <button class="cell" data-index="2"></button>
+
+      <button class="cell" data-index="3"></button>
+      <button class="cell" data-index="4"></button>
+      <button class="cell" data-index="5"></button>
+
+      <button class="cell" data-index="6"></button>
+      <button class="cell" data-index="7"></button>
+      <button class="cell" data-index="8"></button>
+
+    </div>
+
+    <button id="reset">New Game</button>
+
+    <br>
+
+    <a class="back" href="index.html#games">
+      ← Back to Games
+    </a>
+
+    <section class="seo-content">
+
+      <h2>Play Tic Tac Toe Online Free</h2>
+
+      <p>
+        Play the classic Tic Tac Toe game online for free.
+        Two players take turns placing X and O on the board.
+        Get three matching symbols in a row to win.
+      </p>
+
+      <h2>How to Play Tic Tac Toe</h2>
+
+      <p>
+        Player X starts the game. Players take turns selecting
+        empty spaces. The first player to get three symbols
+        horizontally, vertically, or diagonally wins.
+      </p>
+
+    </section>
+
+  </div>
+
+</main>
+
+<script>
+
+  const cells = document.querySelectorAll(".cell");
+  const statusText = document.getElementById("status");
+  const resetButton = document.getElementById("reset");
+
+  let board = ["", "", "", "", "", "", "", ""];
+  let currentPlayer = "X";
+  let gameActive = true;
+
+  const winningPatterns = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6]
+  ];
+
+  function handleCellClick(event) {
+
+    const index = event.target.dataset.index;
+
+    if (board[index] !== "" || !gameActive) {
+      return;
+    }
+
+    board[index] = currentPlayer;
+    event.target.textContent = currentPlayer;
+
+    checkWinner();
+  }
+
+  function checkWinner() {
+
+    let winner = null;
+
+    for (const pattern of winningPatterns) {
+
+      const [a, b, c] = pattern;
+
+      if (
+        board[a] !== "" &&
+        board[a] === board[b] &&
+        board[a] === board[c]
+      ) {
+        winner = board[a];
+        break;
+      }
+    }
+
+    if (winner) {
+
+      statusText.textContent =
+        "Player " + winner + " Wins!";
+
+      gameActive = false;
+      return;
+    }
+
+    if (!board.includes("")) {
+
+      statusText.textContent = "It's a Draw!";
+      gameActive = false;
+      return;
+    }
+
+    currentPlayer =
+      currentPlayer === "X" ? "O" : "X";
+
+    statusText.textContent =
+      "Player " + currentPlayer + "'s Turn";
+  }
+
+  function resetGame() {
+
+    board = ["", "", "", "", "", "", "", ""];
+    currentPlayer = "X";
+    gameActive = true;
+
+    cells.forEach(cell => {
+      cell.textContent = "";
+    });
+
+    statusText.textContent = "Player X's Turn";
+  }
+
+  cells.forEach(cell => {
+    cell.addEventListener("click", handleCellClick);
+  });
+
+  resetButton.addEventListener("click", resetGame);
+
+</script>
+
+</body>
+</html>
